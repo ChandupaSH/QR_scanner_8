@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import QRReader from 'react-qr-scanner';
+import { useMediaQuery } from '@mui/material'
 
 function App() {
+  const isSmall = useMediaQuery('(min-width: 600px )')
+  const widthIs = isSmall? '50%':'100%'
+  const [result, setResult] = useState(null);
+
+  const handleScan = data => {
+    if (data) {
+      setResult(data);
+    }
+  };
+
+  const handleError = (error) => {
+    if (error) {
+      console.log(error)
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <div>code changed</div>
+      {result? null 
+      :
+      <QRReader
+        style={{width: widthIs}}
+        delay={300}
+        onError={handleError}
+        onScan={handleScan}
+        facingMode={{ exact: "environment" }}
+      />}
+      {result && <p>QR code scanned: {result.text}</p>}
     </div>
   );
 }
-
-export default App;
+export default App
