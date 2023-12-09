@@ -45,7 +45,7 @@ function App() {
   const isSmall = useMediaQuery('(min-width: 600px)');
   const widthIs = isSmall ? '50%' : '100%';
   const [result, setResult] = useState(null);
-  const [facingMode, setFacingMode] = useState('environment');
+  const [facingMode, setFacingMode] = useState(0);
 
   const handleCameraChange = (event) => {
     setFacingMode(event.target.value);
@@ -75,7 +75,7 @@ function App() {
               id="frontCamera"
               name="camera"
               value="user"
-              checked={facingMode === 'user'}
+              checked={facingMode === 1}
               onChange={handleCameraChange}
             />
           </div>
